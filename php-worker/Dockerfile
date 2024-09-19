@@ -289,6 +289,14 @@ RUN if [ ${INSTALL_POPPLER_UTILS} = true ]; then \
   apk add --update --no-cache poppler-utils antiword \
 ;fi
 
+# Install FTP:
+
+ARG INSTALL_FTP=false
+
+RUN if [ ${INSTALL_FTP} = true ]; then \
+  docker-php-ext-install ftp && php -m | grep -Fx ftp \
+;fi
+
 # Install AMQP:
 ARG INSTALL_AMQP=false
 
@@ -528,7 +536,7 @@ RUN set -eux; \
   # Install the package(s)
   && apk add --allow-untrusted msodbcsql18_18.3.2.1-1_amd64.apk unixodbc-dev \
   ;fi \
-  # 
+  #
   && if [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70000" ]; then \
     pecl install pdo_sqlsrv-5.3.0 sqlsrv-5.3.0 \
   ;elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70100" ]; then \

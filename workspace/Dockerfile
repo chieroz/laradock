@@ -1503,6 +1503,17 @@ RUN if [ ${INSTALL_POPPLER_UTILS} = true ]; then \
   apt-get -y install poppler-utils antiword \
 ;fi
 
+###########################################################################
+# FTP:
+###########################################################################
+USER root
+
+ARG INSTALL_FTP=false
+
+RUN if [ ${INSTALL_FTP} = true ]; then \
+  docker-php-ext-install ftp && php -m | grep -Fx ftp \
+;fi
+
 #####################################
 # wkhtmltopdf:
 #####################################

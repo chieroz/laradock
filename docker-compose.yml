@@ -179,6 +179,7 @@ services:
           - INSTALL_EVENT=${WORKSPACE_INSTALL_EVENT}
           - INSTALL_DNSUTILS=${WORKSPACE_INSTALL_DNSUTILS}
           - INSTALL_POPPLER_UTILS=${WORKSPACE_INSTALL_POPPLER_UTILS}
+          - INSTALL_FTP=${WORKSPACE_INSTALL_FTP}
           - INSTALL_JDK=${WORKSPACE_INSTALL_JDK}
           - INSTALL_GITHUB_CLI=${WORKSPACE_INSTALL_GITHUB_CLI}
           - ORACLE_INSTANT_CLIENT_MIRROR=${ORACLE_INSTANT_CLIENT_MIRROR}
@@ -306,6 +307,7 @@ services:
           - INSTALL_DOCKER_CLIENT=${PHP_FPM_INSTALL_DOCKER_CLIENT}
           - INSTALL_DNSUTILS=${PHP_FPM_INSTALL_DNSUTILS}
           - INSTALL_POPPLER_UTILS=${PHP_FPM_INSTALL_POPPLER_UTILS}
+          - INSTALL_FTP=${PHP_FPM_INSTALL_FTP}
           - ORACLE_INSTANT_CLIENT_MIRROR=${ORACLE_INSTANT_CLIENT_MIRROR}
           - ORACLE_INSTANT_CLIENT_ARCH=${ORACLE_INSTANT_CLIENT_ARCH}
           - ORACLE_INSTANT_CLIENT_MAJOR=${ORACLE_INSTANT_CLIENT_MAJOR}
@@ -380,6 +382,7 @@ services:
           - INSTALL_EVENT=${PHP_WORKER_INSTALL_EVENT}
           - INSTALL_INTL=${PHP_WORKER_INSTALL_INTL}
           - INSTALL_POPPLER_UTILS=${PHP_WORKER_INSTALL_POPPLER_UTILS}
+          - INSTALL_FTP=${PHP_WORKER_INSTALL_FTP}
           - PUID=${PHP_WORKER_PUID}
           - PGID=${PHP_WORKER_PGID}
           - IMAGEMAGICK_VERSION=${PHP_WORKER_IMAGEMAGICK_VERSION}
@@ -480,7 +483,7 @@ services:
         - frontend
         - backend
       extra_hosts:
-        - "host.docker.internal:host-gateway"  
+        - "host.docker.internal:host-gateway"
 
 ### OpenResty Server #########################################
     openresty:
@@ -2225,7 +2228,7 @@ services:
         - frontend
         - backend
       restart: always
-  
+
   ### keycloak ##################################################
     keycloak:
       image: bitnami/keycloak:${KEYCLOAK_VERSION}
