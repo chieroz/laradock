@@ -14,7 +14,7 @@ const SponsorList: SponsorItem[] = [
     imageUrl: "/img/sponsors/sista-ai-logo.png",
     description: (
       <>
-        <b>Make Your Apps Smarter with a Plug-and-Play AI Voice Assistant.</b>
+        <b>Voice UI for Apps & Websites — Powered by AI Agents</b>
       </>
     ),
   },
