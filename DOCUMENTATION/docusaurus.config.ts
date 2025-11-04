@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Laradock',
-  tagline: 'A prebuilt Docker setup that lets you run a full PHP development environment in seconds.',
+  tagline: 'A Docker setup that lets you run a full PHP development environment in seconds.',
   favicon: 'laradock.ico',
 
   // Set the production url of your site here
