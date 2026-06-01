@@ -1,4 +1,4 @@
-FROM selenium/standalone-chrome
+FROM selenium/standalone-chromium
 
 LABEL maintainer="Edmund Luong <edmundvmluong@gmail.com>"
 
