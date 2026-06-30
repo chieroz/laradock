@@ -480,7 +480,7 @@ services:
         - frontend
         - backend
       extra_hosts:
-        - "host.docker.internal:host-gateway"  
+        - "host.docker.internal:host-gateway"
 
 ### OpenResty Server #####################################
     openresty:
@@ -2057,7 +2057,14 @@ services:
         - frontend
         - backend
       restart: always
-  
+
+### Gotenberg ################################################
+    gotenberg:
+      image: gotenberg/gotenberg:8
+      restart: unless-stopped
+      networks:
+        - backend
+
 ### Keycloak #############################################
     keycloak:
       image: bitnami/keycloak:${KEYCLOAK_VERSION}
