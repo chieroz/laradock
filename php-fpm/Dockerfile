@@ -682,7 +682,16 @@ RUN if [ ${INSTALL_OCI8} = true ]; then \
     # Install PHP extensions deps
     && apt-get install --no-install-recommends -yqq \
       libaio-dev \
-      freetds-dev && \
+      freetds-dev \
+    # Debian 13 "trixie"+: libaio-dev only ships libaio.so.1t64 (2024 time64 ABI
+    # transition), but Oracle Instant Client's libclntsh.so hard-requires the
+    # classic libaio.so.1 SONAME. Without this symlink, oci8/pdo_oci fail to
+    # load at PHP startup. No-op on older Debian bases that still ship
+    # libaio.so.1 directly.
+    && AIO_REAL=$(dpkg -L libaio1t64 2>/dev/null | grep -E 'libaio\.so\.1t64(\.[0-9]+)*$' | head -n1) \
+    && if [ -n "$AIO_REAL" ] && [ ! -e "$(dirname "$AIO_REAL")/libaio.so.1" ]; then \
+      ln -s "$(basename "$AIO_REAL")" "$(dirname "$AIO_REAL")/libaio.so.1"; \
+    fi && \
     # Install PHP extensions
     if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
       echo 'instantclient,/opt/oracle/instantclient_${ORACLE_INSTANT_CLIENT_VERSION}/' | pecl install oci8-2.0.12; \
