@@ -1,0 +1,32 @@
+# PHP 8.4 services, alongside the default PHP 8.3 ones (for projects deployed to Debian trixie).
+# Loaded via COMPOSE_FILE in .env (COMPOSE_FILE=docker-compose.yml:docker-compose.php84.yml). Sites opt in with `fastcgi_pass php84-upstream;`
+# (see nginx/sites/php84-upstream.conf) and by exec'ing into workspace84.
+services:
+
+  workspace84:
+    extends:
+      file: docker-compose.yml
+      service: workspace
+    build:
+      args:
+        - LARADOCK_PHP_VERSION=8.4
+        # the upstream Symfony CLI installer changed its install path and breaks Laradock's step
+        - INSTALL_SYMFONY=false
+    # host ports are already taken by the 8.3 workspace
+    ports: !reset []
+
+  php-fpm84:
+    extends:
+      file: docker-compose.yml
+      service: php-fpm
+    build:
+      args:
+        - LARADOCK_PHP_VERSION=8.4
+    volumes:
+      - ./php-fpm/php8.4.ini:/usr/local/etc/php/php.ini
+    depends_on: !override
+      - workspace84
+
+  nginx:
+    depends_on:
+      - php-fpm84
