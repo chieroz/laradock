@@ -1,6 +1,6 @@
 # PHP 8.4 services, alongside the default PHP 8.3 ones (for projects deployed to Debian trixie).
 # Loaded via COMPOSE_FILE in .env (COMPOSE_FILE=docker-compose.yml:docker-compose.php84.yml). Sites opt in with `fastcgi_pass php84-upstream;`
-# (see nginx/sites/php84-upstream.conf) and by exec'ing into workspace84.
+# (see nginx/sites/php84-upstream.conf) and by exec'ing into workspace84. Guide: PHP84.md
 services:
 
   workspace84:
