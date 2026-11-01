@@ -64,12 +64,23 @@ only when `COMPOSE_FILE` is not set, and this `.env` sets it. (The existing untr
    ```
    If the project has a Makefile, point its workspace variable at `workspace84` and make its `up`
    target start `php-fpm84` (see `lexicon.edt/Makefile`).
+   Also update hardcoded container names, which point at `edt83-workspace-1`: for example
+   `.mcp.json` (Laravel Boost runs `docker exec ... edt83-workspace-1 php artisan boost:mcp`)
+   becomes `edt83-workspace84-1`. Find them with `grep -rn "workspace-1\|exec workspace "`
+   outside `vendor/` and `node_modules/`, and fix the project docs (CLAUDE.md, README) the
+   same way.
 3. **Composer**: require PHP 8.4 and pin the platform so packages resolve for 8.4:
    ```json
    "require": { "php": "^8.4" },
    "config": { "platform": { "php": "8.4" } }
    ```
-   then `composer update` inside `workspace84`.
+   then, inside `workspace84`, choose the scope of the update:
+   - `composer update --lock`: only refreshes the lock hash for the new constraints and keeps
+     every package version. Use it when the move should change nothing else.
+   - `composer update`: re-resolves everything for 8.4 and usually pulls in new majors that
+     need PHP 8.4 (for agenzie.edt: several Symfony components 7.4 -> 8.0). Use it when you
+     want those updates too; check the `composer.lock` diff and list the major bumps in the
+     changelog.
 4. **Database**: if the project uses Doctrine, set `server_version: '8.4'` (MySQL 8.4, as on RDS).
 5. **Code**: optionally move Rector to `UP_TO_PHP_84`, then run the tests and static analysis on
    PHP 8.4.
