@@ -22,6 +22,8 @@ version through its `fastcgi_pass`.
 
 Details in `docker-compose.php84.yml`:
 
+- `workspace84` has `INSTALL_MSSQL=true` (sqlsrv in the CLI, as in `php-fpm84`): sop.edt reads Infolib
+  from queue jobs and artisan. The PHP 8.3 `workspace` keeps `WORKSPACE_INSTALL_MSSQL` from `.env`.
 - `workspace84` has `INSTALL_SYMFONY=false`: the upstream Symfony CLI installer changed its install
   path and breaks Laradock's install step (the projects don't need the CLI).
 - `workspace84` has `ports: !reset []`: the host ports (SSH 2222 etc.) are already taken by the

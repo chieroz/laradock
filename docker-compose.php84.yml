@@ -12,6 +12,8 @@ services:
         - LARADOCK_PHP_VERSION=8.4
         # the upstream Symfony CLI installer changed its install path and breaks Laradock's step
         - INSTALL_SYMFONY=false
+        # sqlsrv in the CLI too (sop.edt reads Infolib from queue jobs and artisan), as in php-fpm84
+        - INSTALL_MSSQL=true
     # host ports are already taken by the 8.3 workspace
     ports: !reset []
 
