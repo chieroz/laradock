@@ -10,7 +10,7 @@
 # certificate doesn't cover.
 #
 # Run it after adding or renaming a vhost, then: docker compose up -d nginx <the PHP services it lists>
-# Requires mkcert (brew install mkcert && mkcert -install).
+# Requires mkcert (brew install mkcert && mkcert -install). The why, the certificate, the setups: LOCAL-HTTPS.md
 set -euo pipefail
 cd "$(dirname "$0")"
 
