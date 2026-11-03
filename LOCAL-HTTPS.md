@@ -69,52 +69,7 @@ A wildcard covers one label only: `*.edt.test` covers `next.edt.test`, not `next
 - **CA mounted, not baked**: the CA is per machine (`MKCERT_CAROOT`), so the images stay generic.
   `SSL_CERT_FILE` pointing at the mkcert CA alone would drop the public CAs.
 
-## Setups and branches
+## Setups, branches, updating
 
-Every setup is a checkout of the fork `chieroz/laradock` (`origin`), whose own branches lag
-`laradock/laradock` (`upstream`) by many commits. A setup branch is not kept merged with `master`:
-a fork-wide change is one self-contained commit, cherry-picked onto each setup branch.
-
-| Setup (`~/Sites/…`) | Local branch | Pushes to | Own changes |
-|---|---|---|---|
-| `edt_laradock` | `master` | `origin/edt` | PHP 8.4 services (`PHP84.md`), production-aligned customizations |
-| `fininc_laradock` | `master` | `origin/fininc` | none |
-| `shsoluzioni_laradock` | `master` | `origin/shsoluzioni` | FTP module; uncommitted Gotenberg service |
-| `unito_laradock` | `master` | `origin/master` | `docker-compose.multi-php.yml` |
-| `chierotti_laradock` | `master` | `origin/chierotti` | none |
-| `conservatoriotorino_laradock` | `master` | `origin/conservatoriotorino` | Gotenberg service, `mysql_native_password` |
-
-Every folder has a local `master`, tracking its own setup branch (`edt_laradock`, once `edt83_laradock` on branch `edt83`, had `my-config` until 2026-11-03),
-and `push.default=upstream` in its `.git/config`, so a plain `git push` goes to that branch (Git's default,
-`simple`, refuses when the names differ). A fresh clone needs it again: `git config push.default upstream`.
-Spreading a commit from the setup where it was made (`<source>`):
-
-```bash
-cd ~/Sites/<other>_laradock/laradock
-git fetch ~/Sites/<source>_laradock/laradock master && git cherry-pick <sha>
-git push
-```
-
-## Updating
-
-A local stack isn't exposed, so it isn't updated routinely: if it works, leave it.
-
-- **From `origin`**: nothing to pull. Each setup branch has one writer, its own folder (plus the
-  cherry-picks above). Exception: a setup also edited on another machine, `git pull` there first.
-- **From `upstream`**: only when you need something from it, above all when **production changes**
-  (a server moves to a new PHP version, extension or database) and the local setup must match it
-  again; or for a fix to a build that broke. An update means rebuilding images, so one setup at a
-  time, with its stack stopped:
-
-  ```bash
-  cd ~/Sites/<setup>_laradock/laradock
-  git fetch upstream
-  git merge upstream/master          # conflicts, if any: docker-compose.yml, .env.example, Dockerfiles
-  docker compose build workspace php-fpm nginx
-  docker compose up -d
-  ./local-https.sh && git push
-  ```
-- **Health check** of a folder: `git fetch && git status -sb`. `ahead N` = commits never pushed,
-  `behind N` = something to pull.
-
-The applications (merlino, agenzie, …) are separate repositories: pull them as usual.
+The six setups, their fork branches, how to push, spread a change and update from upstream:
+`FORK.md`.
