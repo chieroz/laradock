@@ -77,18 +77,19 @@ a fork-wide change is one self-contained commit, cherry-picked onto each setup b
 
 | Setup (`~/Sites/…`) | Local branch | Pushes to | Own changes |
 |---|---|---|---|
-| `edt83_laradock` | `my-config` | `origin/edt83` | PHP 8.4 services (`PHP84.md`), production-aligned customizations |
+| `edt83_laradock` | `master` | `origin/edt83` | PHP 8.4 services (`PHP84.md`), production-aligned customizations |
 | `fininc_laradock` | `master` | `origin/fininc` | none |
 | `shsoluzioni_laradock` | `master` | `origin/shsoluzioni` | FTP module; uncommitted Gotenberg service |
 | `unito_laradock` | `master` | `origin/master` | `docker-compose.multi-php.yml` |
 | `chierotti_laradock` | `master` | `origin/chierotti` | none |
 | `conservatoriotorino_laradock` | `master` | `origin/conservatoriotorino` | Gotenberg service, `mysql_native_password` |
 
-Spreading a commit from the setup where it was made:
+Every folder has a local `master`, tracking its own setup branch (edt83 had `my-config` until 2026-11-03).
+Spreading a commit from the setup where it was made (`<source>`):
 
 ```bash
 cd ~/Sites/<other>_laradock/laradock
-git fetch ~/Sites/edt83_laradock/laradock my-config && git cherry-pick <sha>
+git fetch ~/Sites/<source>_laradock/laradock master && git cherry-pick <sha>
 git push origin HEAD:<its branch>
 ```
 
