@@ -91,3 +91,27 @@ cd ~/Sites/<other>_laradock/laradock
 git fetch ~/Sites/edt83_laradock/laradock my-config && git cherry-pick <sha>
 git push origin HEAD:<its branch>
 ```
+
+## Updating
+
+A local stack isn't exposed, so it isn't updated routinely: if it works, leave it.
+
+- **From `origin`**: nothing to pull. Each setup branch has one writer, its own folder (plus the
+  cherry-picks above). Exception: a setup also edited on another machine, `git pull` there first.
+- **From `upstream`**: only when you need something from it, above all when **production changes**
+  (a server moves to a new PHP version, extension or database) and the local setup must match it
+  again; or for a fix to a build that broke. An update means rebuilding images, so one setup at a
+  time, with its stack stopped:
+
+  ```bash
+  cd ~/Sites/<setup>_laradock/laradock
+  git fetch upstream
+  git merge upstream/master          # conflicts, if any: docker-compose.yml, .env.example, Dockerfiles
+  docker compose build workspace php-fpm nginx
+  docker compose up -d
+  ./local-https.sh && git push
+  ```
+- **Health check** of a folder: `git fetch && git status -sb`. `ahead N` = commits never pushed,
+  `behind N` = something to pull.
+
+The applications (merlino, agenzie, …) are separate repositories: pull them as usual.
