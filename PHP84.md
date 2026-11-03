@@ -29,8 +29,8 @@ Details in `docker-compose.php84.yml`:
 - `php-fpm84` has `depends_on: !override [workspace84]`, so it doesn't start the 8.3 workspace.
 
 Why a separate file and not `docker-compose.override.yml`: Docker Compose loads the override file
-only when `COMPOSE_FILE` is not set, and this `.env` sets it. (The existing untracked
-`docker-compose.override.yml` is never loaded for that reason.)
+only when `COMPOSE_FILE` is not set, and this `.env` sets it. Local HTTPS between the sites
+(`./local-https.sh`) appends its generated `docker-compose.local.yml` to the same `COMPOSE_FILE`.
 
 ## Setup on a new machine
 
