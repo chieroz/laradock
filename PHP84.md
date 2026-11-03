@@ -64,9 +64,9 @@ only when `COMPOSE_FILE` is not set, and this `.env` sets it. Local HTTPS betwee
    ```
    If the project has a Makefile, point its workspace variable at `workspace84` and make its `up`
    target start `php-fpm84` (see `lexicon.edt/Makefile`).
-   Also update hardcoded container names, which point at `edt83-workspace-1`: for example
-   `.mcp.json` (Laravel Boost runs `docker exec ... edt83-workspace-1 php artisan boost:mcp`)
-   becomes `edt83-workspace84-1`. Find them with `grep -rn "workspace-1\|exec workspace "`
+   Also update hardcoded container names, which point at `edt-workspace-1`: for example
+   `.mcp.json` (Laravel Boost runs `docker exec ... edt-workspace-1 php artisan boost:mcp`)
+   becomes `edt-workspace84-1`. Find them with `grep -rn "workspace-1\|exec workspace "`
    outside `vendor/` and `node_modules/`, and fix the project docs (CLAUDE.md, README) the
    same way.
 3. **Composer**: require PHP 8.4 and pin the platform so packages resolve for 8.4:
