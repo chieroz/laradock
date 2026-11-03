@@ -84,13 +84,15 @@ a fork-wide change is one self-contained commit, cherry-picked onto each setup b
 | `chierotti_laradock` | `master` | `origin/chierotti` | none |
 | `conservatoriotorino_laradock` | `master` | `origin/conservatoriotorino` | Gotenberg service, `mysql_native_password` |
 
-Every folder has a local `master`, tracking its own setup branch (edt83 had `my-config` until 2026-11-03).
+Every folder has a local `master`, tracking its own setup branch (edt83 had `my-config` until 2026-11-03),
+and `push.default=upstream` in its `.git/config`, so a plain `git push` goes to that branch (Git's default,
+`simple`, refuses when the names differ). A fresh clone needs it again: `git config push.default upstream`.
 Spreading a commit from the setup where it was made (`<source>`):
 
 ```bash
 cd ~/Sites/<other>_laradock/laradock
 git fetch ~/Sites/<source>_laradock/laradock master && git cherry-pick <sha>
-git push origin HEAD:<its branch>
+git push
 ```
 
 ## Updating
