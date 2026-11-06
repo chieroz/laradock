@@ -2062,6 +2062,13 @@ services:
       restart: always
 
 
+### Gotenberg ################################################
+    gotenberg:
+      image: gotenberg/gotenberg:8
+      restart: unless-stopped
+      networks:
+        - backend
+
   ### Keycloak ##################################################
     keycloak:
       image: bitnami/keycloak:${KEYCLOAK_VERSION}
