@@ -16,7 +16,7 @@ touches another one's configuration.
 |---|---|---|---|
 | `edt_laradock` | `master` | `origin/edt` | PHP 8.4 services (`PHP84.md`), production-aligned customizations |
 | `fininc_laradock` | `master` | `origin/fininc` | none |
-| `shsoluzioni_laradock` | `master` | `origin/shsoluzioni` | FTP module; uncommitted Gotenberg service |
+| `shsoluzioni_laradock` | `master` | `origin/shsoluzioni` | FTP module, Gotenberg service |
 | `unito_laradock` | `master` | `origin/master` | `docker-compose.multi-php.yml` |
 | `chierotti_laradock` | `master` | `origin/chierotti` | none |
 | `conservatoriotorino_laradock` | `master` | `origin/conservatoriotorino` | Gotenberg service, `mysql_native_password` |
