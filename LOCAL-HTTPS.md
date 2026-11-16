@@ -40,7 +40,8 @@ setup and restart nginx in the running one:
 cd nginx/ssl
 mkcert -cert-file default.crt -key-file default.key \
   '*.edt.test' '*.chierotti.test' '*.shsoluzioni.test' '*.conservatoriotorino.test' \
-  '*.unito.test' '*.fininc.test' 'guidemarcopolo.test' '*.lonelyplanetitalia.test' 'mfa.test'
+  '*.unito.test' '*.fininc.test' 'guidemarcopolo.test' '*.lonelyplanetitalia.test' 'mfa.test' \
+  '*.coatilab.test'
 chmod 644 default.key
 for d in ~/Sites/*_laradock/laradock; do [ "$d/nginx/ssl" = "$PWD" ] || cp default.crt default.key "$d/nginx/ssl/"; done
 ```
